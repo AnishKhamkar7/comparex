@@ -6,9 +6,9 @@
   "scripts": {
     "dev": "bun run --watch src/index.ts",
     "start": "bun run src/index.ts",
-    "db:migrate": "bunx prisma migrate dev --name $npm_config_name",
     "db:generate": "bunx prisma generate",
-    "db:deploy": "bunx prisma migrate deploy"
+    "db:deploy": "bunx prisma migrate deploy",
+    "db:studio": "bunx prisma studio"
   },
   "devDependencies": {
     "@types/bun": "latest"

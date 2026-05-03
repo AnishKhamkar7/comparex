@@ -7,9 +7,9 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
-    "db:migrate": "turbo run db:migrate --filter=server",
     "db:generate": "turbo run db:generate --filter=server",
-    "db:deploy": "turbo run db:deploy --filter=server"
+    "db:deploy": "turbo run db:deploy --filter=server",
+    "db:studio": "turbo run db:studio --filter=server"
   },
   "devDependencies": {
     "prettier": "^3.7.4",

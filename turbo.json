@@ -16,6 +16,19 @@
     "dev": {
       "cache": false,
       "persistent": true
+    },
+
+    "db:generate": {
+      "cache": true,
+      "outputs": ["apps/server/prisma/generated/**"]
+    },
+
+    "db:deploy": {
+      "cache": false
+    },
+    "db:studio": {
+      "cache": false,
+      "persistent": true
     }
   }
 }
