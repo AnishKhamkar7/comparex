@@ -1,5 +1,5 @@
-import { errorResponse } from "../utils/response";
-import { AppError } from "../utils/app-error";
+import { errorResponse } from "./response";
+import { AppError } from "./app-error";
 import type { ContentfulStatusCode } from "hono/utils/http-status";
 
 export const globalErrorHandler = (err: any, c: any) => {
