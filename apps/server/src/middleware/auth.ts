@@ -1,7 +1,7 @@
 // src/middleware/auth.ts
-import { createMiddleware } from "hono/factory";
-import { auth } from "../lib/auth";
-import type { AppEnv } from "../hono/context";
+import { createMiddleware } from 'hono/factory';
+import { auth } from '../lib/auth';
+import type { AppEnv } from '../hono/context';
 
 export const authMiddleware = createMiddleware<AppEnv>(async (c, next) => {
   const session = await auth.api.getSession({
@@ -9,14 +9,14 @@ export const authMiddleware = createMiddleware<AppEnv>(async (c, next) => {
   });
 
   if (!session) {
-    c.set("user", null);
-    c.set("session", null);
+    c.set('user', null);
+    c.set('session', null);
     await next();
     return;
   }
 
-  c.set("user", session.user);
-  c.set("session", session.session);
+  c.set('user', session.user);
+  c.set('session', session.session);
 
   await next();
 });
