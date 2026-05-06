@@ -3,6 +3,6 @@ import * as handler from './handler';
 
 const userRoutes = new Hono();
 
-userRoutes.get('/', handler.getUsersHandler);
+userRoutes.get('/', handler.profile);
 
 export default userRoutes;
