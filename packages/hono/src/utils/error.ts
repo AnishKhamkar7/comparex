@@ -1,12 +1,17 @@
-import { errorResponse } from './response';
-import { AppError } from './app-error';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
+import { AppError } from './app-error';
+import { errorResponse } from './response';
 
 export const globalErrorHandler = (err: any, c: any) => {
-  console.error('🔥 ERROR:', err);
+  console.error('ERROR:', err);
 
   if (err instanceof AppError) {
-    return errorResponse(c, err.message, null, err.statusCode as ContentfulStatusCode);
+    return errorResponse(
+      c,
+      err.message,
+      null,
+      err.statusCode as ContentfulStatusCode,
+    );
   }
 
   if (err.name === 'ZodError') {

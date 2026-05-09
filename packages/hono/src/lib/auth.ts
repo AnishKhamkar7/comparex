@@ -8,11 +8,11 @@ const client = new PrismaClient();
 export const auth = betterAuth({
   database: prismaAdapter(client, { provider: 'postgresql' }),
   baseURL: env.BETTER_AUTH_URL,
-  emailAndPassword: { enabled: true },
+  emailAndPassword: { enabled: false },
   socialProviders: {
     google: {
-      clientId: env.GOOGLE_CLIENT_ID!,
-      clientSecret: env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
     },
   },
 });

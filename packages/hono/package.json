@@ -1,0 +1,23 @@
+{
+  "name": "@comparex/hono",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts",
+    "./app-type": "./src/app-type.ts"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.8.0",
+    "better-auth": "^1.6.9",
+    "hono": "^4.12.17",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}

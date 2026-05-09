@@ -1,6 +1,6 @@
 import type { Context } from 'hono';
-import type { ApiResponse } from '../types/api-response';
 import type { ContentfulStatusCode } from 'hono/utils/http-status';
+import type { ApiResponse } from '../types/api-response';
 
 export const successResponse = <T>(
   c: Context,

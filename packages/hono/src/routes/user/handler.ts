@@ -1,6 +1,5 @@
-import { errorResponse, successResponse } from '../../utils/response';
-import * as userService from './service';
 import type { AppContext } from '../../hono/context';
+import { errorResponse, successResponse } from '../../utils/response';
 
 export const profile = async (c: AppContext) => {
   const user = c.get('user');
