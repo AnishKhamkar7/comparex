@@ -5,10 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "bun run --watch src/index.ts",
-    "start": "bun run src/index.ts",
-    "db:generate": "bunx prisma generate",
-    "db:deploy": "bunx prisma migrate deploy",
-    "db:studio": "bunx prisma studio"
+    "start": "bun run src/index.ts"
   },
   "devDependencies": {
     "@types/bun": "latest"
@@ -18,8 +15,6 @@
   },
   "dependencies": {
     "@comparex/hono": "workspace:*",
-    "@prisma/client": "^7.8.0",
-    "dotenv": "^17.4.2",
-    "prisma": "^7.8.0"
+    "dotenv": "^17.4.2"
   }
 }
