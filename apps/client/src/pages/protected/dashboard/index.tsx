@@ -1,5 +1,3 @@
-
-
 export const DashboardPage = () => {
   return (
     <main className="grid min-h-screen bg-background text-foreground lg:grid-cols-[1fr_460px]">
