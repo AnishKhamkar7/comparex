@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client-js"
   output = "../src/generated"
@@ -22,6 +17,12 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+
+  rooms          Room[] @relation("RoomOwner")
+  collaborations    Collaboration[]
+  posts  Post[]
+  streaks        RoomStreak[]
+  uploads        Upload[]
 
   @@unique([email])
   @@map("user")
@@ -74,11 +75,127 @@ model Verification {
   @@index([identifier])
   @@map("verification")
 }
+model Room {
+  id              String          @id @default(cuid())
+  name            String
+  description     String?
 
+  ownerId         String
+  owner           User            @relation("RoomOwner", fields: [ownerId], references: [id], onDelete: Cascade)
 
-model Rooms {
-  id          String  @id @default(cuid())
+  type            RoomType
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  visibility      RoomVisibility  @default(PRIVATE)
+
+  startDate       DateTime
+  endDate         DateTime?
+
+  requireDailyPost Boolean        @default(true)
+
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  members         Collaboration[]
+  posts           Post[]
+  streaks         RoomStreak[]
+
+  @@index([ownerId])
 }
+
+model Collaboration {
+  id          String      @id @default(cuid())
+
+  roomId      String
+  userId      String
+
+  role        MemberRole  @default(MEMBER)
+
+  joinedAt    DateTime    @default(now())
+
+  room        Room        @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId])
+  @@index([roomId])
+  @@index([userId])
+}
+
+model Post {
+  id            String      @id @default(cuid())
+
+  caption       String?
+
+  roomId         String?
+  userId         String
+
+  weight         Float?
+  calories       Int?
+
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  room           Room?       @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user           User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  uploads        Upload[]
+
+  @@index([roomId])
+  @@index([userId])
+}
+
+model Upload {
+  id              String         @id @default(cuid())
+
+  url             String
+  publicId        String?
+
+  mimeType        String?
+  size            Int?
+
+  trackingPostId  String? //For now kept optional if not trackingPost then it must be drafts
+  uploadedById    String
+
+  createdAt       DateTime       @default(now())
+
+  post    Post?  @relation(fields: [trackingPostId], references: [id], onDelete: Cascade)
+
+  uploadedBy      User           @relation(fields: [uploadedById], references: [id], onDelete: Cascade)
+
+  @@index([trackingPostId])
+  @@index([uploadedById])
+}
+
+model RoomStreak {
+  id              String      @id @default(cuid())
+
+  roomId          String
+  userId          String
+
+  currentStreak   Int         @default(0)
+  longestStreak   Int         @default(0)
+
+  lastPostedAt    DateTime?
+
+  updatedAt       DateTime    @default(now())
+
+  room            Room        @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  user            User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([roomId, userId])
+}
+
+enum RoomType {
+  SOLO
+  GROUP
+}
+
+enum RoomVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+enum MemberRole {
+  OWNER
+  MEMBER
+}
+
