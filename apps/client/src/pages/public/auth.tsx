@@ -16,7 +16,7 @@ export const AuthPage = ({ mode }: AuthPageProps) => {
 
     const { error: authError } = await authClient.signIn.social({
       provider: 'google',
-      callbackURL: '/',
+      callbackURL: `${window.location.origin}/dashboard`,
     });
 
     if (authError) {

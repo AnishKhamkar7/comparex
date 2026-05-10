@@ -1,4 +1,4 @@
-import { createAuthClient } from 'better-auth/client';
+import { createAuthClient } from 'better-auth/react';
 
 const authBaseUrl = import.meta.env.VITE_API_URL ?? window.location.origin;
 
