@@ -120,7 +120,7 @@ model Collaboration {
   @@index([userId])
 }
 
-model Post {
+model Post { //can change the name of the table but ig it doesn't matter much
   id            String      @id @default(cuid())
 
   caption       String?
