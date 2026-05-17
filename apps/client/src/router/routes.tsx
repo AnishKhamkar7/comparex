@@ -1,6 +1,7 @@
 import { createRootRoute, createRoute, Navigate, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 import { authClient } from '~/lib/auth-client';
+import { ProtectedLayout } from '~/router/protected-layout';
 
 export const rootRoute = createRootRoute({
   component: () => (
@@ -43,4 +44,10 @@ export const protectedRoute = createRoute({
 
     return <Outlet />;
   },
+});
+
+export const protectedLayoutRoute = createRoute({
+  getParentRoute: () => protectedRoute,
+  id: 'protected-layout',
+  component: ProtectedLayout,
 });

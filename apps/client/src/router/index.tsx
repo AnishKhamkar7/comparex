@@ -1,9 +1,10 @@
 import { createRoute } from '@tanstack/react-router';
-import { rootRoute, protectedRoute, publicRoute } from './routes';
+import { rootRoute, protectedRoute, publicRoute, protectedLayoutRoute } from './routes';
 import { AuthCallbackPage } from '~/pages/public/auth-callback';
 import { AuthPage } from '~/pages/public/auth';
 import { HomePage } from '~/pages/public/home';
 import { DashboardPage } from '~/pages/protected/dashboard';
+import { CollaborationsPage } from '~/pages/protected/collaborations';
 
 const indexRoute = createRoute({
   getParentRoute: () => publicRoute,
@@ -30,12 +31,20 @@ const authCallbackRoute = createRoute({
 });
 
 const dashboardRoute = createRoute({
-  getParentRoute: () => protectedRoute,
+  getParentRoute: () => protectedLayoutRoute,
   path: '/dashboard',
-  component: () => <DashboardPage />,
+  component: DashboardPage,
+});
+
+const collaborationsRoute = createRoute({
+  getParentRoute: () => protectedLayoutRoute,
+  path: '/collaborations',
+  component: CollaborationsPage,
 });
 
 export const routeTree = rootRoute.addChildren([
   publicRoute.addChildren([indexRoute, loginRoute, signupRoute, authCallbackRoute]),
-  protectedRoute.addChildren([dashboardRoute]),
+  protectedRoute.addChildren([
+    protectedLayoutRoute.addChildren([dashboardRoute, collaborationsRoute]),
+  ]),
 ]);
